@@ -1,0 +1,8 @@
+# Ignore compiled python files
+*.pyc
+
+# Ignore experimental notebooks
+*.ipynb
+
+# Ignore database files
+*.db
