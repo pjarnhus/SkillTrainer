@@ -24,6 +24,7 @@ create table levels(
 create table library(
 	item_id integer primary key autoincrement,
 	tag_id integer,
+	title text,
 	reference text,
 	level_low integer,
 	level_high integer,
