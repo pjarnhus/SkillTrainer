@@ -20,3 +20,6 @@ while True:
 
     elif choice.lower() == '2':
         ui.print_status(ui.add_topic())
+
+    elif choice.lower() == '3':
+        ui.print_status(ui.add_tag())

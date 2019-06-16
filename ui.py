@@ -11,8 +11,7 @@ def print_status(msg: str):
 
 
 def add_topic():
-    os.system('clear')
-    print('Add new topic')
+    print_status('Add new topic')
     while True:
         topic_name = input('Topic (empty to abort): ')
 
@@ -24,4 +23,20 @@ def add_topic():
         else:
             return io_funcs.create_topic(topic_name)
             break
+
+def add_tag():
+    print_status('Add new tag to topic')
+    while True:
+        topic_name = input('Topic that should be tagged: ')
+        topic = io_funcs.find_topic(topic_name)
+        if not topic:
+            return 'Topic does not exist'
+        tag_name = input('Tag name (empty to abort): ')
+        if len(tag_name) == 0:
+            return 'No tag added'
+
+        tag = io_funcs.find_topic(tag_name)
+        if not tag:
+            return 'Tag does not exist'
+        return io_funcs.create_tag(topic[0], tag[0])
 
