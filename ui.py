@@ -1,5 +1,6 @@
 import os
 import io_funcs
+import web
 
 
 def print_status(msg: str):
@@ -9,6 +10,11 @@ def print_status(msg: str):
     print('-'*(6+len(msg)))
     print()
 
+
+def print_levels():
+    print('-  Levels  -')
+    print('\n'.join([f'{id}) {name}'
+                     for id, name in io_funcs.get_all_levels()]))
 
 def input_topic(text:str):
     while True:
@@ -51,3 +57,44 @@ def add_tag():
             return 'Tag does not exist'
         return io_funcs.create_tag(topic[0], tag[0])
 
+
+def add_item():
+    print_status('Add new item to library')
+    url = input('Enter URL of new item (empty to abort): ')
+    if url == '':
+        return 'No item added'
+    web_item = web.WebItem(url)
+    suggested_title = web_item.get_title()
+    print(f'Suggested title: {suggested_title}')
+    use_title = input('Use suggested title [y]/n? ')
+    if use_title.lower() == 'y' or use_title == '':
+        title = suggested_title
+    else:
+        title = input('Enter title (empty to abort): ')
+    if title == '':
+        return 'No item added'
+    read_item = input('Have you read the item before y/[n]? ')
+    if read_item.lower() == 'n' or read_item == '':
+        return io_funcs.create_item(title, url)
+
+    topic_name = input_topic('Which topic should the item be registered under'
+                             + ' (empty to abort)? ')
+    if len(topic_name) == 0:
+        return 'No item added'
+
+    topic = io_funcs.find_topic(topic_name)
+    if not topic:
+        return 'Topic does not exists'
+
+    print_levels()
+    low_level = input('What is the lowest level this item is suited for'
+                      + ' (empty to abort)? ')
+    if low_level == '':
+        return 'No item added'
+
+    high_level = input('What is the highest level this item is suited for'
+                       + ' (empty to abort)? ')
+
+    if high_level == '':
+        return 'No item added'
+    return io_funcs.create_item(title, url, topic, low_level, high_level)

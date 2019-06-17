@@ -2,8 +2,7 @@
 import os
 import ui
 
-print('Welcome to the Skill Trainer')
-os.system('clear')
+ui.print_status('Welcome to the Skill Trainer')
 while True:
     print('Please select an option:')
     print('1) Add content to library')
@@ -14,9 +13,11 @@ while True:
     print('')
     choice = input('Selected option: ')
 
-    os.system('clear')
     if choice.lower() == 'x':
         break
+
+    elif choice.lower() == '1':
+        ui.print_status(ui.add_item())
 
     elif choice.lower() == '2':
         ui.print_status(ui.add_topic())
