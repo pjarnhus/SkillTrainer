@@ -1,3 +1,5 @@
+#!/home/phigit/anaconda3/bin/python
+
 """Overall script for running the solution."""
 import os
 import ui
@@ -9,6 +11,7 @@ while True:
     print('2) Add new topic')
     print('3) Add new tag to topic')
     print('4) Select training content')
+    print('5) Pick item from To Read')
     print('x) Exit')
     print('')
     choice = input('Selected option: ')
@@ -24,3 +27,6 @@ while True:
 
     elif choice.lower() == '3':
         ui.print_status(ui.add_tag())
+
+    elif choice.lower() == '5':
+        ui.print_status(ui.to_read_item())

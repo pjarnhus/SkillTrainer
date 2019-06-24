@@ -1,6 +1,7 @@
 import os
 import io_funcs
 import web
+import webbrowser
 
 
 def print_status(msg: str):
@@ -98,3 +99,22 @@ def add_item():
     if high_level == '':
         return 'No item added'
     return io_funcs.create_item(title, url, topic, low_level, high_level)
+
+
+def to_read_item():
+    item_to_read = io_funcs.get_to_read()
+    if len(item_to_read) == 0:
+        return 'No items in To Read'
+    item_to_read = item_to_read[0]
+    print_status(item_to_read[1])
+    webbrowser.open(item_to_read[2])
+    topic_name = input_topic('Which topic should the item be registered under'
+                             + ' (empty to abort)? ')
+    if len(topic_name) == 0:
+        return 'No item added'
+
+    topic = io_funcs.find_topic(topic_name)
+    if not topic:
+        return 'Topic does not exists'
+    return io_funcs.update_item(item_id = item_to_read[0],
+                                tag_id = topic[0][0])
