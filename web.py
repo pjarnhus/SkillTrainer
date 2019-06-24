@@ -21,7 +21,13 @@ class WebItem:
     def get_title(self):
         if not self.succeeded:
             return None
-        return self.content.find('title').text
+        return (self
+                .content
+                .find('title')
+                .text
+                .replace("'", " ")
+                .replace('"', ' ')
+               )
 
 
     def get_suggested_topics(self, n_max=10):
