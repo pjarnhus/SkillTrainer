@@ -84,3 +84,32 @@ def create_item(title,
     cur.execute(sql_query)
     db.conn.commit()
     return return_string
+
+
+def get_to_read(n_items: int = 1):
+    sql_query = ('select item_id, title, reference from library'
+                 + ' where tag_id is null'
+                 + f' order by random() limit {n_items}')
+
+    rows = (db
+            .conn
+            .cursor()
+            .execute(sql_query)
+            .fetchall()
+           )
+    return list(rows)
+
+
+def update_item(item_id, **update_fields):
+    update_string = ', '.join([str(k)
+                               + '='
+                               + ("'" + str(v) + "'" if isinstance(v, str)
+                                  else str(v))
+                               for k, v in update_fields.items()])
+    sql_query = ('update library set '
+                 + update_string
+                 + f' where item_id = {item_id}')
+    cur = db.conn.cursor()
+    cur.execute(sql_query)
+    db.conn.commit()
+    return 'Updated something'
