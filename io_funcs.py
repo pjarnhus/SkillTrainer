@@ -87,8 +87,10 @@ def create_item(title,
 
 
 def get_to_read(n_items: int = 1):
-    sql_query = ('select item_id, title, reference from library'
-                 + ' where tag_id is null'
+    sql_query = ('select l.item_id, l.title, l.reference from library l'
+                 + ' left join tags t'
+                 + ' on l.item_id = t.item_id'
+                 + ' where t.tag_id is null'
                  + f' order by random() limit {n_items}')
 
     rows = (db

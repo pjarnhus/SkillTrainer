@@ -10,10 +10,10 @@ create table tag_md(
 
 create table tags(
 	tag_link_id integer primary key autoincrement,
-	child_id integer,
-	parent_id integer,
-	foreign key(child_id) references tag_md(tag_id),
-	foreign key(parent_id) references tag_md(tag_id)
+	item_id integer,
+	tag_id integer,
+	foreign key(item_id) references library(item_id),
+	foreign key(tag_id) references tag_md(tag_id)
 );
 
 create table levels(
