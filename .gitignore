@@ -4,5 +4,6 @@
 # Ignore experimental notebooks
 *.ipynb
 
-# Ignore database files
+# Ignore database and data files
 *.db
+*.csv
